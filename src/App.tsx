@@ -1,35 +1,117 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
+  CssBaseline,
+} from "@mui/material";
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
+import FitnessCenterTwoToneIcon from '@mui/icons-material/FitnessCenterTwoTone';
+import MenuIcon from "@mui/icons-material/Menu";
+import Customers from "./components/Customers";
+import Trainings from "./components/Trainings";
+
+const drawerWidth = 200;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const DrawerList = (
+    <List>
+      {[
+        { text: "Customer", icon: <FaceTwoToneIcon />, path: "/customer" },
+        { text: "Training", icon: <FitnessCenterTwoToneIcon />, path: "/training" },
+      ].map(({ text, icon, path }) => (
+        <ListItem key={text} disablePadding>
+          <ListItemButton component={Link} to={path}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            backgroundColor: "#00502e",
+            width: open ? `calc(100% - ${drawerWidth}px)` : "100%",
+            ml: open ? `${drawerWidth}px` : 0,
+            transition: "margin 0.3s ease-in-out",
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(!open)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, fontWeight: 500 }}
+            >
+              Personal Trainer
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        {open && (
+          <Drawer
+            variant="persistent"
+            anchor="left"
+            open={open}
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+          >
+            <Box sx={{ overflow: "auto" }}>{DrawerList}</Box>
+          </Drawer>
+        )}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: open ? `calc(100% - ${drawerWidth}px)` : "100%",
+            transition: "margin 0.3s ease-in-out",
+            ml: 0,
+          }}
+        >
+          <Routes>
+            <Route path="/customer" element={<Customers />} />
+            <Route path="/training" element={<Trainings />} />
+          </Routes>
+        </Box>
+      </Box>
+    </Router>
+  );
 }
 
-export default App
+export default App;

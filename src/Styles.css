@@ -1,0 +1,19 @@
+/* Custom styles for AG Grid */
+.ag-theme-material.custom-ag-grid {
+    border: 2px solid #fafafa;
+    border-radius: 5px;
+  }
+  
+  .ag-theme-material .ag-header {
+    background-color: #e3fbf6 !important;
+  }
+  
+  .ag-theme-material .ag-header-cell:hover {
+    background-color: #d5fdec !important;
+   
+  }
+  
+  /* Custom hover effect for rows */
+  .ag-theme-material .ag-row:hover {
+    background-color: #ffffff !important;
+  }
