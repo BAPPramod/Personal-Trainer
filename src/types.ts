@@ -6,11 +6,21 @@ export type Customer = {
     city: string;
     email: string;
     phone: string;
+    _links: {
+        self: {
+            href: string;
+        };
+    };
 }
 
 export type Training = {
     activity: string;
     date: string;
-    duration: number;
-    customer: Customer | null;
+    duration: string;
+    customer: string;
+      _links: {
+        self: {
+          href: string;
+        };
+      };
 }
