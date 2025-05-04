@@ -16,9 +16,11 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
 import FitnessCenterTwoToneIcon from '@mui/icons-material/FitnessCenterTwoTone';
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MenuIcon from "@mui/icons-material/Menu";
 import Customers from "./components/Customers";
 import Trainings from "./components/Trainings";
+import Calendar from "./components/Calendar";
 
 const drawerWidth = 200;
 
@@ -34,6 +36,7 @@ function App() {
       {[
         { text: "Customer", icon: <FaceTwoToneIcon />, path: "/customer" },
         { text: "Training", icon: <FitnessCenterTwoToneIcon />, path: "/training" },
+        { text: "Calendar", icon: <CalendarMonthIcon />, path: "/calendar" },
       ].map(({ text, icon, path }) => (
         <ListItem key={text} disablePadding>
           <ListItemButton component={Link} to={path}>
@@ -107,6 +110,7 @@ function App() {
           <Routes>
             <Route path="/customer" element={<Customers />} />
             <Route path="/training" element={<Trainings />} />
+            <Route path="/calendar" element={<Calendar />} />
           </Routes>
         </Box>
       </Box>

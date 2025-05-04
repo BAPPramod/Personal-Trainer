@@ -14,6 +14,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCustomer from "./AddCustomer";
 import AddTraining from "./AddTraining";
+import { saveAs } from "file-saver";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -170,10 +171,58 @@ export default function Customers() {
             .catch((err: unknown) => console.error(err));
     };
 
+
     const handleCancel = () => {
         setEditRowId(null);
         handleFetch();
         gridApi.current?.refreshCells({ force: true });
+    };
+
+    const exportToCSV = (customers: Customer[]) => {
+        const filteredCustomers = customers.map(
+            ({
+                firstname,
+                lastname,
+                streetaddress,
+                postcode,
+                city,
+                email,
+                phone,
+            }) => ({
+                firstname,
+                lastname,
+                streetaddress,
+                postcode,
+                city,
+                email,
+                phone,
+            })
+        );
+        const csvContent = [
+            [
+                "First name",
+                "Last name",
+                "Street address",
+                "Postcode",
+                "City",
+                "Email",
+                "Phone",
+            ],
+            ...filteredCustomers.map((c) => [
+                c.firstname,
+                c.lastname,
+                c.streetaddress,
+                c.postcode,
+                c.city,
+                c.email,
+                c.phone,
+            ]),
+        ]
+            .map((row) => row.join(","))
+            .join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        saveAs(blob, "customers.csv");
     };
 
     return (
@@ -192,7 +241,25 @@ export default function Customers() {
                 >
                     Customers
                 </Typography>
-                <AddCustomer handleFetch={handleFetch} />
+                <Box>
+                    <AddCustomer handleFetch={handleFetch} />
+                    <Button
+                        sx={{
+                            color: "whitesmoke",
+                            backgroundColor: "#00502e",
+                            padding: 0.8,
+                            "&:hover": {
+                                backgroundColor: "whitesmoke",
+                                color: "#00502e",
+                            },
+                        }}
+                        variant="contained"
+                        size="small"
+                        onClick={() => exportToCSV(customers)}
+                    >
+                        Export to CSV
+                    </Button>
+                </Box>
             </Box>
             <div className="ag-theme-material custom-ag-grid" style={{ height: 500 }}>
                 <AgGridReact

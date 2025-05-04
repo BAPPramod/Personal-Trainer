@@ -1,24 +1,25 @@
-export const fetchTrainings = async () => {
+import { NewTraining, Training, Customer, TrainingWithCustomer } from "./types";
+
+export const fetchTrainings = async (): Promise<TrainingWithCustomer[]> => {
   const response = await fetch(import.meta.env.VITE_TRAINING_API_URL);
   if (!response.ok)
-    throw new Error("Error in fetch: " + response.statusText);
-
+    throw new Error("Error fetching trainings: " + response.statusText);
   const data = await response.json();
-  if (!data._embedded || !data._embedded.trainings) return [];
+
+  if (!data._embedded || !data._embedded.trainings) return []; // Ensure trainings exist
 
   const trainingWithCustomerPromises = data._embedded.trainings.map(
-    async (training: { _links: { customer: { href: string } } }) => {
+    async (training: Training) => {
       try {
         const customerUrl = training._links.customer.href;
         const customerResponse = await fetch(customerUrl);
         if (!customerResponse.ok)
           throw new Error("Error fetching customer: " + customerResponse.statusText);
-
-        const customerData = await customerResponse.json();
-        return { ...training, customer: customerData };
+        const customerData: Customer = await customerResponse.json();
+        return { ...training, customerData }; // Ensure customerData is included
       } catch (err) {
         console.error("Error fetching customer:", err);
-        return { ...training, customer: null };
+        return { ...training, customerData: null }; // Handle missing customer data gracefully
       }
     }
   );
@@ -26,19 +27,15 @@ export const fetchTrainings = async () => {
   return await Promise.all(trainingWithCustomerPromises);
 };
 
-
-export const saveTraining = async (newTraining: { date: string; duration: string; activity: string; customer: string; }) =>  {
-  return fetch(import.meta.env.VITE_TRAINING_API_URL, {
+export const saveTraining = async (training: NewTraining) => {
+  const response = await fetch(import.meta.env.VITE_TRAINING_API_URL, {
     method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(newTraining),
-  }).then((response) => {
-    if (!response.ok)
-      throw new Error("Error in saving: " + response.statusText);
-
-    return response.json();
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(training),
   });
-}
+  if (!response.ok)
+    throw new Error("Error saving training: " + response.statusText);
+};
 
 export const deleteTraining = async (url: string) => {
   return fetch(url, { method: "DELETE" }).then((response) => {

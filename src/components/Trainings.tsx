@@ -46,7 +46,7 @@ export default function Trainings() {
         {
             headerName: "Customer",
             valueGetter: (params: ValueGetterParams) => {
-                const customer = params.data.customer;
+                const customer = params.data.customerData; // Corrected field to customerData
                 return customer ? `${customer.firstname} ${customer.lastname}` : "";
             },
             filter: true,
