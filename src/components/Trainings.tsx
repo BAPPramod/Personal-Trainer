@@ -14,7 +14,7 @@ export default function Trainings() {
     const [trainings, setTrainings] = useState<Training[]>([]);
     const [open, setOpen] = useState(false);
 
-    const [colDefs, setColDefs] = useState<ColDef[]>([
+    const [colDefs] = useState<ColDef[]>([
         {
             cellRenderer: (params: ICellRendererParams) => (
                 <Button
