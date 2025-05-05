@@ -19,7 +19,7 @@ export default function AddCustomer(props: AddCustomerProps) {
 
     const handleClickOpen = () => {
         setOpen(true);
-        setCustomer({} as Customer); // reset form when opened
+        setCustomer({} as Customer);
     };
 
     const handleClose = () => {
@@ -33,7 +33,7 @@ export default function AddCustomer(props: AddCustomerProps) {
             .catch((err: unknown) => console.error(err));
     };
 
-    
+
 
     return (
         <>

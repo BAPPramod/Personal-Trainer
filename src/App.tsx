@@ -13,7 +13,7 @@ import {
   CssBaseline,
 } from "@mui/material";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, Link } from "react-router-dom";
 import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
 import FitnessCenterTwoToneIcon from '@mui/icons-material/FitnessCenterTwoTone';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";

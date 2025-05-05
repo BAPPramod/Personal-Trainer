@@ -15,7 +15,6 @@ import { Training } from "../types";
 import { GroupedTraining } from "../types";
 
 
-// Type for the grouped data used in the chart
 export default function Statistics() {
     const [trainingData, setTrainingData] = useState<GroupedTraining[]>([]);
     const [loading, setLoading] = useState<boolean>(true);

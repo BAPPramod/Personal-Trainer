@@ -18,7 +18,6 @@ import { saveAs } from "file-saver";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-// API fetch type
 type FetchResponse = {
     _embedded: {
         customers: Customer[];
