@@ -2,6 +2,8 @@
 
 This is a React-based frontend application for managing customer and training data for a Personal Trainer company. The app interacts with a provided REST API to handle customers, their trainings, and provides various features to manage and display the data intuitively.
 
+![Image](https://github.com/user-attachments/assets/ec8e3c09-4fc7-4d22-8727-598d77cec7e7)
+
 ![Image](https://github.com/user-attachments/assets/135ba94b-0bd5-40be-ad77-5d43dc6afc00)
 
 ![Image](https://github.com/user-attachments/assets/0d0a5b5b-6575-40a6-ad75-127fa6fd4531)
