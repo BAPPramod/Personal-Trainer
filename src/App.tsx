@@ -18,11 +18,13 @@ import FaceTwoToneIcon from '@mui/icons-material/FaceTwoTone';
 import FitnessCenterTwoToneIcon from '@mui/icons-material/FitnessCenterTwoTone';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BarChartTwoToneIcon from '@mui/icons-material/BarChartTwoTone';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import MenuIcon from "@mui/icons-material/Menu";
 import Customers from "./components/Customers";
 import Trainings from "./components/Trainings";
 import Calendar from "./components/Calendar";
 import Statistics from "./components/Statistics";
+import Home from "./components/Home";
 
 const drawerWidth = 200;
 
@@ -40,6 +42,7 @@ function App() {
         { text: "Training", icon: <FitnessCenterTwoToneIcon />, path: "/training" },
         { text: "Calendar", icon: <CalendarMonthIcon />, path: "/calendar" },
         { text: "Statistics", icon: <BarChartTwoToneIcon />, path: "/statistics" },
+        { text: "Home", icon: <HomeTwoToneIcon />, path: "/" },
       ].map(({ text, icon, path }) => (
         <ListItem key={text} disablePadding>
           <ListItemButton component={Link} to={path}>
@@ -76,8 +79,17 @@ function App() {
             </IconButton>
             <Typography
               variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, fontWeight: 600 }}
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: 1,
+                fontWeight: 600,
+                textDecoration: "none",
+                color: "inherit",
+                "&:hover": {
+                  color: "thistle",
+                },
+              }}
             >
               Personal Trainer
             </Typography>
@@ -111,6 +123,7 @@ function App() {
           }}
         >
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/customer" element={<Customers />} />
             <Route path="/training" element={<Trainings />} />
             <Route path="/calendar" element={<Calendar />} />
@@ -118,7 +131,9 @@ function App() {
           </Routes>
         </Box>
       </Box>
+
     </Router>
+
   );
 }
 
