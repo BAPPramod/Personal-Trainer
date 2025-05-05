@@ -9,7 +9,7 @@ import { saveTraining } from "../TrainingAPI";
 import { getCustomerById } from "../CustomerAPI";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { NewTraining } from "../types";
 
@@ -97,7 +97,10 @@ export default function AddTraining(props: AddTrainingProps) {
 
         <DialogContent>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker onChange={handleDateChange} />
+            <DateTimePicker
+              value={training.date ? dayjs(training.date) : null}
+              onChange={handleDateChange}
+            />
           </LocalizationProvider>
 
           <TextField

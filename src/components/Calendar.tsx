@@ -19,11 +19,8 @@ const mapTrainingsToEvents = (trainings: TrainingWithCustomer[]): CalendarEvent[
 };
 
 export default function Calendar() {
-    // State to manage calendar events
     const [events, setEvents] = useState<CalendarEvent[]>([]);
-    // State to manage the current view (month, week, day)
     const [currentView, setCurrentView] = useState<View>(Views.MONTH);
-    // State to manage the current date
     const [currentDate, setCurrentDate] = useState(new Date());
 
     // Fetch training data and map it to calendar events
@@ -41,12 +38,12 @@ export default function Calendar() {
                 startAccessor="start"
                 endAccessor="end"
                 style={{ height: 500 }}
-                views={[Views.MONTH, Views.WEEK, Views.DAY]} // Enable month, week, and day views
-                view={currentView} // Bind the current view state
-                onView={setCurrentView} // Update the view state on change
-                defaultView={Views.MONTH} // Set default view to Month
-                date={currentDate} // Bind the current date state
-                onNavigate={setCurrentDate} // Update the date state on navigation
+                views={[Views.MONTH, Views.WEEK, Views.DAY]}
+                view={currentView}
+                onView={setCurrentView}
+                defaultView={Views.MONTH}
+                date={currentDate}
+                onNavigate={setCurrentDate}
             />
         </Box>
     );
