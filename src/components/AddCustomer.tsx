@@ -27,13 +27,16 @@ export default function AddCustomer(props: AddCustomerProps) {
     };
 
     const addCustomer = () => {
+        if (!customer.firstname || !customer.lastname || !customer.streetaddress || !customer.postcode || !customer.city || !customer.email || !customer.phone) {
+            alert("All fields are required.");
+            return;
+        }
+
         saveCustomer(customer)
             .then(() => props.handleFetch())
             .then(() => setOpen(false))
             .catch((err: unknown) => console.error(err));
     };
-
-
 
     return (
         <>

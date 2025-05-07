@@ -66,6 +66,10 @@ export default function AddTraining(props: AddTrainingProps) {
   };
 
   const handleSave = () => {
+    if (!training.activity || !training.date || !training.duration) {
+      alert("All fields are required.");
+      return;
+    }
     saveTraining(training)
       .then(() => props.handleFetch())
       .then(() => setOpen(false))
